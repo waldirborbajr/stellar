@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 def create_account(public_key, server):
     url = "http://localhost:8000/friendbot"
     params = {"addr": public_key}
@@ -27,14 +28,25 @@ def create_account(public_key, server):
         print(f"   - Tipo de Ativo: {asset_type}, Saldo: {balance_amount}")
     return account
 
+
+def validate_account(public_key, server):
+    try:
+        return server.load_account(public_key)
+    except NotFoundError:
+        print("A conta de destino não existe!")
+        print("Criando a conta...")
+        return create_account(public_key, server)
+
+
 def write():
+    # Recupera a chave privada do arquivo .env
     PRV_KEY = os.getenv("PRV_KEY")
     print(f"Chave privada: {PRV_KEY}")
 
     sender_keypair = Keypair.from_secret(PRV_KEY)
     # URL do Horizon na Standalone Network
-    #server = Server(horizon_url="http://localhost:8000")
-    #network_passphrase = Network.STANDALONE_NETWORK_PASSPHRASE
+    # server = Server(horizon_url="http://localhost:8000")
+    # network_passphrase = Network.STANDALONE_NETWORK_PASSPHRASE
 
     server = Server(horizon_url="https://horizon.stellar.org")
     network_passphrase = Network.PUBLIC_NETWORK_PASSPHRASE
@@ -85,14 +97,6 @@ def write():
         print("Erro ao enviar a transação:")
         print(e)
 
-def validate_account(public_key, server):
-    try:
-        return server.load_account(public_key)
-    except NotFoundError:
-        print("A conta de destino não existe!")
-        print("Criando a conta...")
-        return create_account(public_key, server)        
 
 if __name__ == "__main__":
     write()
-
