@@ -63,7 +63,7 @@ def write():
     print(f"Mensagem Assinada (base64): {assinatura_b64}")
 
     # Chave e valor para a operação manage_data
-    data_key = "msg"
+    data_key = "desafio"
     # Valor é a assinatura em bytes
     data_value = assinatura
 
