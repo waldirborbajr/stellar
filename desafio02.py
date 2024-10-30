@@ -64,6 +64,7 @@ def write():
 
     # Chave e valor para a operação manage_data
     data_key = "desafio"
+
     # Valor é a assinatura em bytes
     data_value = assinatura
 
