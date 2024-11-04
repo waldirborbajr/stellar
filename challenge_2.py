@@ -41,7 +41,6 @@ def validate_account(public_key, server):
 def write():
     # Recupera a chave privada do arquivo .env
     PRV_KEY = os.getenv("PRV_KEY")
-    print(f"Chave privada: {PRV_KEY}")
 
     sender_keypair = Keypair.from_secret(PRV_KEY)
     # URL do Horizon na Standalone Network
